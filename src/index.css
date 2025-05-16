@@ -1,0 +1,10 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+#root { /* Si tu aplicación React se renderiza dentro de un div con el id "root" */
+  background-color: rgb(45, 45, 45);
+  width: 100%;
+  min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la ventana */
+}
