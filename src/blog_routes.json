@@ -1,0 +1,12 @@
+[
+    {
+        "slug" : "vida-y-bloques",
+        "title" : "Vida y Bloques en Godot 4",
+        "file" : "./blog_posts/vida_y_bloques.html" 
+    },
+    {
+        "slug" : "aprender-a-programar",
+        "title" : "Cosas que hubiera deseado saber antes de aprender a programar",
+        "file" : "./blog_posts/aprender_a_programar.html" 
+    }
+]
