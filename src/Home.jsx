@@ -10,8 +10,8 @@ function Home() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const variants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 1.5 } },
+    hidden: { opacity: 0, x: -25 },
+    visible: { opacity: 1, x: 0, transition: { duration: 1.2 } },
   };
 
 
@@ -51,7 +51,7 @@ function Home() {
         </Heading>
       </motion.div>
 
-      <Flex mt="20px">
+      <Flex mt="20px" flexWrap="wrap" >
         {/*Project 1*/}
       <Flex width="33%">
       <motion.div 
@@ -88,7 +88,7 @@ function Home() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, delay: 0.5 }}
       >
-        <Text fontSize="xl" textAlign="center" mt={4} marginRight="10" marginLeft="10"
+        <Text fontSize="xl" textAlign="center"  marginRight="10" marginLeft="10"
         color="teal.500" fontWeight="bold" >
 
         <Circle size="200px" overflow="hidden"  marginLeft="57px" marginBottom="20px">
@@ -115,11 +115,11 @@ function Home() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        <Text fontSize="xl" textAlign="center" mt={4} marginRight="10" marginLeft="10"
+        <Text fontSize="xl" textAlign="center" marginRight="10" marginLeft="10"
         color="teal.500" fontWeight="bold">
 
         <Circle size="200px" overflow="hidden"  marginLeft="60px" marginBottom="20px">
-        <a href="/blog/vida-y-bloques" target="_blank" rel="noopener noreferrer">
+        <a href="/My-Portfolio/#/blog/vida-y-bloques" target="_blank" rel="noopener noreferrer">
         <Image src={BlogImage} alt="Blog Image" width="200px" borderRadius="50%" height="100%" objectFit="fill" align="center"  />
         </a>
         </Circle>
@@ -141,7 +141,7 @@ function Home() {
         ref={ref}  variants={variants}
         initial="hidden" animate={isInView ? 'visible' : 'hidden'}>
 
-        <Text textAlign="center" mt="100px" fontSize="5xl" color="teal.600" fontWeight="bolder"> 
+        <Text textAlign="center" mt="50px" fontSize="5xl" color="teal.600" fontWeight="bolder"> 
           Mis habilidades:
 
           <motion.div
@@ -174,7 +174,7 @@ function Home() {
         ref={ref}  variants={variants}
         initial="hidden" animate={isInView ? 'visible' : 'hidden'}>
 
-          <Text textAlign="center" mt="100px" fontSize="3xl"  fontWeight="bold">
+          <Text textAlign="center" mt="40px" fontSize="3xl"  fontWeight="bold">
             Así que, ahora que diste un pequeño recorrido por mi sitio web, ¿Quieres saber más?
             Pulsa el botón de aquí abajo para ir a la siguiente sección
           </Text>
