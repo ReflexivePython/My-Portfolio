@@ -1,0 +1,72 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><p><strong>¿Cómo programar un bloque en Godot que tenga puntos de salud sin morir en el intento?</strong></p>
+<p><strong><em>(Spoiler: Quizá te rompas la cabeza un poco...)</em></strong>  </p>
+<p>Aquel día me encontraba trabajando en una pequeña build. Mi plan era simple: hacer un terreno que se pueda
+romper al más estilo Minecraft o Terraria. Pensé: Es simple, solo tendré que crear un TileMapLayer; añadir su respectivo
+Tile y luego crear una función para romperlo.  </p>
+<p>Y no es tan así... De hecho, muchas cosas han cambiado entre Godot 3 y Godot 4 (siendo esta última la versión actual).
+Cualquier tutorial que busques en línea te dará las respuestas más antiguas posibles, tristemente.</p>
+<p>Bien, yendo al grano, en Godot 4 tenemos una función interesante para aplicar en los TileMapLayer. Se trata de nada más
+y nada menos que set_cell(). ¿Quieres borrar un bloque? Usa set_cell(), ¿Quieres añadir un bloque? Usa set_cell().
+¿Quieres crear un mega videojuego en dos días? Ve rezando por ello.</p>
+<p>El punto es que utilicé set_cell() con los argumentos que pide la función: Coordenadas, que puedes obtenerlas fácilmente así:</p>
+<p><strong>Ejemplo con Mouse</strong>
+Utilizas el Event con get_global_mouse_position (Te aviso de una vez, SIEMPRE utiliza global_mouse_position, de lo contrario
+te devolverá un dato erróneo) y lo conviertes en coordenadas con el método local_to_map() así:</p>
+<p>var cell_pos = tilemap.local_to_map(global_pos)</p>
+<p>En donde global_pos es la posición global del Mouse que asignaste antes.</p>
+<p>El segundo argumento que te pide es...</p>
+<p><strong>Tile ID</strong>
+Te pide el ID de la celda que quieres poner allí. Si tienes digamos, una roca con un TileID (puedes consultarlo en el TileSet)
+que es igual a 2 lo asignas así:</p>
+<p>tilemap.set_cell(cell_pos , 2 ) --&gt; Siendo 2 el ID de Roca</p>
+<p>En mi caso, utilicé -1 ya que este es por defecto el ID de una celda vacía.</p>
+<p>Pero pará emoción, falta aún un tercer argumento:</p>
+<p><strong>Atlas COORDS</strong>
+Las coordenadas del Atlas, este es el más simple de todos, solo tienes que hacer esto:</p>
+<p>tilemap.set_cell(cell_pos , 2 , Vector2i.ZERO)</p>
+<p>Esto solo es para ocupar el espacio del tercer argumento, aunque realmente no influye mucho en nuestro caso. Es importante, eso sí,
+pero lo es más en casos puntuales (como cuando tienes SubTiles).</p>
+<p>Ya con esto tendríamos nuestra lógica de quitar bloques armada. Funciona pero como que algo no cuadra: Parece Paint, porque quitas un bloque y desaparece así sin más, de un solo golpe.</p>
+<p>Quería un sistema más realista: que te partas la mano rompiendo un pedazo de musgo del suelo. Para ello, utilicé:</p>
+<p><strong>Custom Data Layers</strong>
+Resulta que cuando vas a la sección de TileSet en tu TileMapLayer te va a aparecer el CustomDataLayers, si añades una propiedad esta la heredarán los hijos de los tiles a los que se los asignes. Hay muchísimas propiedades, pero en mi caso asigné un entero con el nombre de &quot;Life&quot;. Luego me fui a la sección de TileSet y en la sección de <em>Pintar</em> escogí la propiedad que acababa de crear y se la dí a un tile en específico. Esta parte es muy intuitiva, no tiene pierde.</p>
+<p>Bien, ahora viene lo complejo. Godot tiene una forma un tanto curiosa de manejar los valores <em>null</em> o inexistentes para él. ¿A qué te refieres con complejo? dirás...</p>
+<p>Resulta que para añadir a tu código la lógica de la vida de un bloque tienes que usar una función de TileMapLayer llamada get_custom_data() de manera que quede así:</p>
+<p>var custom_data = tilemap.get_cell_tile_data(cell_pos).get_custom_data(&quot;Life)</p>
+<p>En donde el custom_data es la propiedad que estás buscando. Ya con eso puedes crear el resto de lógica para que el bloque &quot;desaparezca&quot; después de varios golpes al estilo Minecraft tal que así:</p>
+<p>var block_health = {}
+var custom_data = tilemap.get_cell_tile_data(cell_pos).get_custom_data(&quot;Life&quot;)</p>
+<p>*Asignas el valor a un diccionario para que lo guarde y el bloque no reinicie su valor&quot;</p>
+<p>if not block_health.has(custom_data):
+    block_health[custom_data] = custom_data</p>
+<p><em>Y cada vez que el jugador golpee el bloque le vas restando vida</em></p>
+<p>block_health[custom_data] -= 1</p>
+<p><em>Y por último, añades la lógica que destruye al bloque</em></p>
+<p>if block_health[custom_data] &lt;= 0:
+    tilemap.set_cell(cell_pos, -1, Vector2i.ZERO)</p>
+<p>###Errores comunes y estresantes</p>
+<p>¡Bien ahí! Ahora tus bloques se eliminan... También se te eliminarán tus esperanzas de crear cuando veas que el juego crashea, te va a soltar un error de valor <em>null</em>
+¿¡ Por qué !? Pensé yo, exaltado cuando me ocurrió.</p>
+<p>Bien, pequeño Padawan. Resulta que cuando intentas obtener el valor de una celda vacía (en este caso el custom_data) te va a devolver <em>null</em>. Godot enloquece, dice: &quot;No puedo manejar esto, mejor cerremos todo de golpe&quot; y eso hace básicamente.</p>
+<p>Al borde del estrés porque no encontraba la solución a este particular error por ningún lado utilicé mi arma secreta: Buscar en Reddit, entre los posts más olvidados. Un sujeto amable (y extremadamente egocéntrico) explicaba el cómo solucionarlo.</p>
+<p>Para que no te salte este error, debes de primero validar si esa celda no devuelve <em>null</em> y luego de eso conseguir el custom_data. Algo como esto:</p>
+<p>var cell_pos = tilemap.local_to_map(global_pos)
+var tile_data = tilemap.get_cell_tile_data(cell_pos)</p>
+<pre><code><span class="hljs-symbol">if</span> tile_data != null:
+    <span class="hljs-meta">if</span> not <span class="hljs-keyword">block_health.has(cell_pos):
+</span>        <span class="hljs-keyword">block_health[cell_pos] </span>= tile_data.get_custom_data(<span class="hljs-string">"life"</span>)
+
+    <span class="hljs-keyword">block_health[cell_pos] </span>-= <span class="hljs-number">1</span>
+
+    <span class="hljs-meta">if</span> <span class="hljs-keyword">block_health[cell_pos] </span>&lt;= <span class="hljs-number">0</span>:
+        tilemap.set_cell(cell_pos, -<span class="hljs-number">1</span>, Vector2i.ZERO)
+        <span class="hljs-keyword">block_health.erase(cell_pos)</span>
+</code></pre><p>Con esto, no explotará porque validas si el valor es <em>null</em>. En caso de serlo, no hará nada, pero si no es <em>null</em> entonces va a ejecutar el resto del código en donde guarda la información del bloque en un diccionario y tras eliminarlo elimina esa información. Si eres buen observador (o lector en este caso) notarás que ahora no estoy guardando el custom_data en el diccionario, sino la posición en coordenadas del tile.</p>
+<p>Esto es en principio para que no te ocurra el bug que me pasó a mí: Si estás a punto de romper un bloque y presionas a otro, se romperá el otro aunque tenga toda su vida. Esto porque guardas el dato de la vida, no de la posición del bloque y sus variantes.</p>
+<p>Así que sí, mejor guarda en el diccionario la posición de la celda y sus porpiedades como hice aquí para que no te pase ese curioso bug.</p>
+<p>Si llegaste hasta acá ¡felicidades! Ya puedes enloquecer y hacer tu propio mundo lleno de juegos de azar, mujerzuelas y bloques que explotan al tocarlos.</p>
+<p>Si te gustó mi Blog, sigue pendiente para próximas actualizaciones. Estoy seguro que mis futuros proyectos me darán de qué hablar... Y mucho.</p>
+</body></html>
