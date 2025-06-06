@@ -8,5 +8,10 @@
         "slug" : "aprender-a-programar",
         "title" : "Cosas que hubiera deseado saber antes de aprender a programar",
         "file" : "./blog_posts/aprender_a_programar.html" 
+    },
+    {
+        "slug" : "primeros-pasos-y-caidas",
+        "title" : "Primeros pasos: Primeras caídas",
+        "file" : "./blog_posts/primeros_pasos_primeras_caidas.html" 
     }
 ]

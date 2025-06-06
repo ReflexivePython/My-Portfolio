@@ -4,6 +4,7 @@ import Home from "./Home"
 import About from "./About"
 import Contact from './Contact'
 import Blog from "./Blog"
+import Achievements from "./Achievements"
 
 import BlogPost from "./BlogPost"
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/about" element={<About />} /> {/* Route for About */}
         <Route path="/contact" element={<Contact />} /> {/* Route for Contact */}
         <Route path="/blog" element={<Blog />} /> {/* Route for Blog */}
+        <Route path="/achievements" element={<Achievements />} /> {/* Route for Achievements */}
 
         {/*Blog Routes*/}
         <Route path="/blog/:slug" element={<BlogPost />} />
