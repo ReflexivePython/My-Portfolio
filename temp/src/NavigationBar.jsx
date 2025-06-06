@@ -48,16 +48,6 @@ function NavigationBar() {
           </Link>
         </Flex>
 
-        <Flex flex="1" justify="center">
-          <Link to="/achievements" style={{ width: '80%', textAlign: 'center' }}>
-            <Button variant="ghost" bg="teal" width="100%"
-            _hover={{transform: 'scale(1.05)', boxShadow: 'md'}}
-            boxShadow={location.pathname === '/achievements' ? '0 0 5px white' : 'none'}>
-              Logros
-            </Button>
-          </Link>
-        </Flex>
-
       </Flex>
     );
   }

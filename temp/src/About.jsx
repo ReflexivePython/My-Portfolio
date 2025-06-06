@@ -51,43 +51,39 @@ function About() {
             En particular, me apasiona la creación de experiencias interactivas y la resolución de problemas complejos 
             a través del código. Disfruto de la flexibilidad de JavaScript para construir interfaces web dinámicas, la 
             versatilidad de Python para diversas tareas y la potencia de GDScript en el mundo del desarrollo de videojuegos. 
-            Algunos ejemplos son: </Text>
+            Algunos ejemplos son:
 
-            <ul style={{ marginTop: "20px", textAlign : "center" }}>
-            <li style={{ marginTop: "20px" }}>
-              <strong>• JavaScript</strong>
-            <p style={{ marginTop: "5px", fontWeight: "normal" }}>
-              En donde me he enfocado en el área de FrontEnd como puedes observar,
-              diseñando y montando la lógica del lugar.
-            </p>
-            </li>
+            <ul style={{marginTop:"20px"}}>
+              <li style={{fontWeight:"bold"}}>• JavaScript
+                <li style={{marginTop:"5px", fontWeight:"normal"}}>
+                  En donde me he enfocado en el área de FrontEnd como puedes observar,
+                diseñando y montando la lógica del lugar.
+                </li>
+              </li>
 
-            <li style={{ marginTop: "20px" }}>
-              <strong>• GDScript</strong>
-            <p style={{ marginTop: "5px", fontWeight: "normal" }}>
-              En el cual he diseñado la lógica, mecánicas, animaciones y sprite
-              de diferentes objetos dentro de un videojuego.
-            </p>
-            </li>
+              <li style={{marginTop:"20px",fontWeight:"bold"}}>• GDScript
+                <li style={{marginTop:"5px", fontWeight:"normal"}}>
+                  En el cual he diseñado la lógica, mecánicas, animaciones y sprite
+                  de diferentes objetos dentro de un videojuego.
+                </li>
+              </li>
 
-            <li style={{ marginTop: "20px" }}>
-              <strong>• Redacción y Escritura</strong>
-            <p style={{ marginTop: "5px", fontWeight: "normal" }}>
-              He escrito algunos Blogs, también me dedico a crear las historias de mis 
-              futuros proyectos, y a veces escribo poesía cuando surge.
-            </p>
-            </li>
+              <li style={{marginTop:"20px", fontWeight:"bold"}}>• Redacción y Escritura
+                <li style={{marginTop:"5px", fontWeight:"normal"}}>
+                  He escrito algunos Blogs, también me dedico a crear las historias de mis 
+                  futuros proyectos, y a veces escribo poesía cuando surge.
+                </li>
+              </li>
 
-            <li style={{ marginTop: "20px" }}>
-              <strong>• Diseño de personajes, escenarios y Sprites</strong>
-            <p style={{ marginTop: "5px", fontWeight: "normal" }}>
-              También, a menudo hago diseño de personajes, escenarios, y minijuegos
-              mediante Pixel-Art.
-            </p>
-            </li>
+              <li style={{marginTop:"20px", fontWeight:"bold"}}>• Diseño de personajes, escenarios y Sprites
+                <li style={{marginTop:"5px", fontWeight:"normal"}}>
+                  También, a menudo hago diseño de personajes, escenarios, y minijuegos
+                  mediante Pixel-Art.
+                </li>
+              </li>
+
             </ul>
-
-          
+          </Text>
 
           <Text mt="50px" textAlign="center" fontSize="xl">
           Me considero una persona proactiva, curiosa y con una gran disposición para aprender y colaborar en 
